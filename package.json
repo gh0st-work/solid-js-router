@@ -1,12 +1,12 @@
 {
   "name": "@gh0st-work/solid-js-router",
   "private": false,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/gh0st-work/solid-js-router.git"
   },
-  "description": "React-like solid.js browser router with hassle-free inheritance / dynamic routes",
+  "description": "React-like solid.js browser router with hassle-free nesting / dynamic routes",
   "author": "gh0st-work",
   "license": "MIT",
   "readme": "README.md",

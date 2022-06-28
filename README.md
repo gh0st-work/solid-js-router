@@ -1,5 +1,5 @@
 # solid-js-router
-**React-like [solid.js](https://solidjs.com) browser router with hassle-free inheritance / dynamic routes**
+**React-like [solid.js](https://solidjs.com) browser router with hassle-free nesting / dynamic routes**
 
 [Github](https://github.com/gh0st-work/solid-js-router)
 
@@ -11,7 +11,7 @@
 
 
 ## Motivation
-Solid.js default [**solid-app-router** package](https://github.com/solidjs/solid-app-router) does not support convenient work with route inheritance / dynamic routes. Docs says, it only supports `<Outlet/>` rendering, i.e.:
+Solid.js default [**solid-app-router** package](https://github.com/solidjs/solid-app-router) does not support convenient work with route nesting / dynamic routes. Docs says, it only supports `<Outlet/>` rendering, i.e.:
 ```jsx
 <Route path='/' element={<div>Onion starts here <Outlet /></div>}>
   <Route path='layer1' element={<div>Another layer <Outlet /></div>}>
