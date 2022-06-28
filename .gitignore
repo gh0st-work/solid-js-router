@@ -2,3 +2,4 @@ node_modules
 dist
 pngpm-lock.yaml
 test
+.idea

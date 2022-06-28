@@ -109,6 +109,9 @@ And then rewrite everything with extremely shitty `<Outlet/>` strategy and lots 
 ### Conclusion
 > **So, the only purpose of this library is to make routing workable and convenient.**
 
+## Installation
+`npm i solid-js-router`
+
 ## Usage
 On the same example:
 ```jsx
