@@ -249,7 +249,7 @@ Props:
 
 Ex:
 ```jsx 
-import {Link} from "solid-js-router";
+import {Link} from "@gh0st-work/solid-js-router";
 
 const PersonalAccount = () => {
   return (
@@ -281,7 +281,7 @@ And `history.pathname()` (signal) used in routing.
 
 Ex:
 ```jsx
-import {useHistory} from "solid-js-router";
+import {useHistory} from "@gh0st-work/solid-js-router";
 
 const Home = () => {
   const history = useHistory()
