@@ -288,7 +288,11 @@ const Home = () => {
 ```
 
 
-TODO:
+
+## Development
+### TODO
 - [x] 2 level test
 - [ ] useRoutes hook
 - [ ] match params
+- [ ] types (?)
+
