@@ -110,7 +110,7 @@ And then rewrite everything with extremely shitty `<Outlet/>` strategy and lots 
 > **So, the only purpose of this library is to make routing workable and convenient.**
 
 ## Installation
-`npm i solid-js-router`
+`npm i @gh0st-work/solid-js-router`
 
 ## Usage
 On the same example:

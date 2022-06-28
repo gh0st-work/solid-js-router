@@ -1,6 +1,11 @@
 {
-  "name": "solid-js-router",
-  "version": "1.0.0",
+  "name": "@gh0st-work/solid-js-router",
+  "private": false,
+  "version": "1.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gh0st-work/solid-js-router.git"
+  },
   "description": "React-like solid.js browser router with hassle-free inheritance / dynamic routes",
   "main": "src/index.js",
   "scripts": {
