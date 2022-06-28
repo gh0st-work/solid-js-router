@@ -1,26 +1,15 @@
 {
   "name": "@gh0st-work/solid-js-router",
   "private": false,
-  "version": "1.0.5",
+  "version": "1.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/gh0st-work/solid-js-router.git"
   },
   "description": "React-like solid.js browser router with hassle-free inheritance / dynamic routes",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "gh0st-work",
   "license": "MIT",
   "readme": "README.md",
-  "dependencies": {
-    "history": "^5.3.0",
-    "regexparam": "^2.0.0"
-  },
-  "devDependencies": {
-    "solid-js": "^1.4.4"
-  },
   "keywords": [
     "solid.js",
     "solid",
@@ -28,5 +17,47 @@
     "router",
     "routing",
     "routes"
-  ]
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "solid": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "history": "^5.3.0",
+    "regexparam": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
+    "@rollup/plugin-babel": "5.3.0",
+    "@rollup/plugin-node-resolve": "13.0.5",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.10.3",
+    "babel-preset-solid": "^1.4.4",
+    "jest": "^27.2.5",
+    "prettier": "^2.5.1",
+    "rollup": "^2.52.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "solid-jest": "^0.2.0",
+    "solid-js": "^1.4.4",
+    "typescript": "^4.5.4"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.4.4"
+  },
+  "jest": {
+    "preset": "solid-jest/preset/browser"
+  },
+  "sideEffects": false
 }
