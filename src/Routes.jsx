@@ -3,10 +3,10 @@ import {
   createContext,
   createEffect,
   createMemo,
-  mergeProps,
   useContext,
-  For,
-  createSignal, onMount, onCleanup,
+  createSignal,
+  onMount,
+  onCleanup,
 } from "solid-js";
 import {Dynamic} from 'solid-js/web';
 import {normalizeChildren} from "./utils";

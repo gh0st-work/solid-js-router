@@ -1,12 +1,9 @@
 import {createBrowserHistory} from "history";
 import {
   createContext,
-  createEffect,
   createMemo,
   createSignal,
-  onMount,
   useContext,
-  children as solidChildren,
   onCleanup
 } from "solid-js";
 import {invariant} from "./utils";

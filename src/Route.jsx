@@ -1,4 +1,4 @@
-import {children as childrenSolid, mergeProps, splitProps} from "solid-js";
+import {splitProps} from "solid-js";
 
 export const Route = (props) => {
   const [local, others] = splitProps(props, ['fallback', 'path'])
