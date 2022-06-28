@@ -3,6 +3,13 @@
 
 [Github](https://github.com/gh0st-work/solid-js-router)
 
+## Table of contents:
+- [Motivation](#Motivation)
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [API](#API)
+
+
 ## Motivation
 Solid.js default [**solid-app-router** package](https://github.com/solidjs/solid-app-router) does not support convenient work with route inheritance / dynamic routes. Docs says, it only supports `<Outlet/>` rendering, i.e.:
 ```jsx
@@ -126,7 +133,9 @@ const App = () => (
       <Route path={'/home'} fallback={true}>
         <HomePage/>
       </Route>
-      <Route path={'/personal-account'} element={<PersonalAccountPage/>}/>
+      <Route path={'/personal-account'}>
+        <PersonalAccountPage/>  
+      </Route>
       <DefaultRoute to={'/home'}/>
     </Routes>
   </Router>
@@ -203,7 +212,7 @@ Props:
 Just route component.
 
 Props:
-- **path** - relative path of your route.<br>Parsed via [regexparam](https://github.com/lukeed/regexparam), so you can use `*`. <br>Recommended starting from `/`, i.e. `/personal-account` -> `/products`.<br>Matching (i.e. `/user/:id`) not working for now, PRs are welcome.
+- **path** - relative path of your route.<br>Parsed via [regexparam](https://github.com/lukeed/regexparam), so you can use `*`. <br>Recommended starting from `/`, i.e. `/personal-account` -> `/products`.<br>Params matching (i.e. `/user/:id`) hasn't been implemented yet, PRs are welcome.
 - **children** - default hidden prop, your elements
 - **fallback** - boolean (`true`/`false`).<br>If no available route found the first `fallback={true}` route will be used.<br>Not redirecting anywhere.
 
@@ -291,8 +300,8 @@ const Home = () => {
 
 ## Development
 ### TODO
-- [x] 2 level test
+- [x] second-level nesting test
+- [ ] more levels nesting test
 - [ ] useRoutes hook
-- [ ] match params
+- [ ] match params forwarding
 - [ ] types (?)
-
