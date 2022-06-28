@@ -1,6 +1,8 @@
 # solid-js-router
 **React-like [solid.js](https://solidjs.com) browser router with hassle-free inheritance / dynamic routes**
 
+[Github](https://github.com/gh0st-work/solid-js-router)
+
 ## Motivation
 Solid.js default [**solid-app-router** package](https://github.com/solidjs/solid-app-router) does not support convenient work with route inheritance / dynamic routes. Docs says, it only supports `<Outlet/>` rendering, i.e.:
 ```jsx
