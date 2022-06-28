@@ -118,7 +118,7 @@ And then rewrite everything with extremely shitty `<Outlet/>` strategy and lots 
 On the same example:
 ```jsx
 
-import {Routes, Route, Link, Router, DefaultRoute} from 'solid-js-router';
+import {Routes, Route, Link, Router, DefaultRoute} from '@gh0st-work/solid-js-router';
 
 const App = () => (
   <Router>

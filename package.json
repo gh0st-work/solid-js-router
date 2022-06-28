@@ -1,7 +1,7 @@
 {
   "name": "@gh0st-work/solid-js-router",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/gh0st-work/solid-js-router.git"
