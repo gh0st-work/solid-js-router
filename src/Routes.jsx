@@ -81,6 +81,7 @@ export const Routes = (props) => {
     routes.map((route, i) => {
       if (route._isRoute) {
         route.match = matchRoute(route)
+        route.matchParams = (route.match ? route.match[1] : {})
         route.firstMatch = (route.match && !firstMatchRoute ? route.match : false)
         if (route.firstMatch) {
           firstMatchRoute = route
@@ -119,7 +120,7 @@ export const Routes = (props) => {
   
   createEffect(() => {
     let newRoute = calculateRoute(children(), parentRoute(), router.pathname())
-    if (mounted() && newRoute?.pattern !== route()?.pattern && newRoute?.match !== route()?.match) {
+    if (mounted() && newRoute?.pattern !== route()?.pattern && newRoute?.matchParams !== route()?.matchParams) {
       setRoute(newRoute)
     }
   })
