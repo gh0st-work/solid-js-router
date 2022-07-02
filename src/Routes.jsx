@@ -118,8 +118,9 @@ export const Routes = (props) => {
   })
   
   createEffect(() => {
-    if (mounted()) {
-      setRoute(calculateRoute(children(), parentRoute(), router.pathname()))
+    let newRoute = calculateRoute(children(), parentRoute(), router.pathname())
+    if (mounted() && newRoute !== route()) {
+      setRoute(newRoute)
     }
   })
   
