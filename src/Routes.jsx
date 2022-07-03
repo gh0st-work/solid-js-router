@@ -139,13 +139,20 @@ export const Routes = (props) => {
     route
   }
   
-  const DefaultComponent = (props) => (<>{props.children}</>)
+  const DefaultComponent = (props) => {
+    const children = createMemo(() => (
+      props?.match?.length === 2 && typeof props.children === 'function' ? props.children(props.match[1]) : props.children
+    ))
+    return (<>{children()}</>)
+  }
   
   return (
     <RoutesLegacy.Provider value={context}>
-      <Dynamic component={DefaultComponent}>
-        {route() ? (<>{route().others.children}</>) : (props.fallback ?? null)}
-      </Dynamic>
+      <Dynamic
+        component={DefaultComponent}
+        match={route()?.match}
+        children={route() ? route().others.children : (props.fallback ?? null)}
+      />
     </RoutesLegacy.Provider>
   )
 }

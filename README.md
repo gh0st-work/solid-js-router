@@ -52,7 +52,6 @@ For this example the original way looks better, but if we wanna be honest, the r
 **You kinda coding with solid-app-router**:
 
 ```jsx
-
 const App = () => (
   <Router>
     <Route path={'/home'} element={<HomePage/>}/>
@@ -124,7 +123,6 @@ And then rewrite everything with extremely shitty `<Outlet/>` strategy and lots 
 ## Usage
 On the same example:
 ```jsx
-
 import {Routes, Route, Link, Router, DefaultRoute} from '@gh0st-work/solid-js-router';
 
 const App = () => (
@@ -201,20 +199,50 @@ const PersonalAccountPage = () => {
 ### `<Router>`
 Component for global routing management, use in only once, wrap your app in it.
 
+Props:
+- **history** - [**history** package](https://www.npmjs.com/package/history) `createBrowserHistory()` instance
+- **children** - default hidden prop, your elements
+
 ### `<Routes>`
 Component for defining your routes, just wrap them in it.
 
 Props:
 - **fallback** - JSX element if no available route found.<br>Not redirecting anywhere.
-- **children** - default hidden prop
+- **onRoute** - function `({route, parentRoute}) => {}` that will be called on every route change
+- **children** - default hidden prop, non-`<Route>` components will be ignored
 
 ### `<Route>`
 Just route component.
 
 Props:
-- **path** - relative path of your route.<br>Parsed via [regexparam](https://github.com/lukeed/regexparam), so you can use `*`. <br>Recommended starting from `/`, i.e. `/personal-account` -> `/products`.<br>Params matching (i.e. `/user/:id`) hasn't been implemented yet, PRs are welcome.
-- **children** - default hidden prop, your elements
+- **path** - relative path of your route.<br>Parsed via [regexparam](https://github.com/lukeed/regexparam), so you can use `*`. <br>Recommended starting from `/`, i.e. `/personal-account` -> `/products`.
 - **fallback** - boolean (`true`/`false`).<br>If no available route found the first `fallback={true}` route will be used.<br>Not redirecting anywhere.
+- **children** - default hidden prop, your elements
+
+**Matching supported**, child **must** be function:
+```jsx
+import {Routes, Route, Link, Router, DefaultRoute, Navigate} from '@gh0st-work/solid-js-router';
+
+const App = () => (
+  <Router>
+    <Routes>
+      <Route path={'/car/:id'}>
+        {({id}) => <Car id={id}/>}
+      </Route>
+      <Route path={'/'}>
+        <Navigate to={''}/>  
+      </Route>
+      <DefaultRoute to={'/'}/>
+    </Routes>
+  </Router>
+)
+
+
+const Car = ({id}) => {
+  
+  return (<span>Car #{id}</span>)
+}
+```
 
 ### `<Navigate>`
 Component that will redirect on mount.
@@ -301,7 +329,7 @@ const Home = () => {
 ## Development
 ### TODO
 - [x] second-level nesting test
+- [x] match params forwarding
 - [ ] more levels nesting test
 - [ ] useRoutes hook
-- [ ] match params forwarding
 - [ ] types (?)
