@@ -215,7 +215,7 @@ Props:
 Just route component.
 
 Props:
-- **path** - relative path of your route.<br>Parsed via [regexparam](https://github.com/lukeed/regexparam), so you can use `*`. <br>Recommended starting from `/`, i.e. `/personal-account` -> `/products`.
+- **path** - relative path of your route.<br>Parsed via [regexparam](https://github.com/lukeed/regexparam), so you can use matching. <br>Recommended starting from `/`, i.e. `/personal-account` -> `/products`.
 - **fallback** - boolean (`true`/`false`).<br>If no available route found the first `fallback={true}` route will be used.<br>Not redirecting anywhere.
 - **children** - default hidden prop, your elements
 
