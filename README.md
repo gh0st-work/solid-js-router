@@ -229,10 +229,10 @@ const App = () => (
       <Route path={'/car/:id'}>
         {({id}) => <Car id={id}/>}
       </Route>
-      <Route path={'/'}>
-        <Navigate to={''}/>  
+      <Route path={'/home'}>
+        <Navigate to={'/car/1'}/>  
       </Route>
-      <DefaultRoute to={'/'}/>
+      <DefaultRoute to={'/home'}/>
     </Routes>
   </Router>
 )
