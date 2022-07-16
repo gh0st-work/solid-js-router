@@ -141,7 +141,8 @@ export const Routes = (props) => {
   
   const DefaultComponent = (props) => {
     const children = createMemo(() => (
-      props?.match?.length === 2 && typeof props.children === 'function' ? props.children(props.match[1]) : props.children
+      // props?.match?.length === 2 && typeof props.children === 'function' ? props.children(props.match[1]) : props.children
+      props?.match?.length === 2 ? props.children(props.match[1]) : props.children
     ))
     return (<>{children()}</>)
   }
