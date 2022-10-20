@@ -3,6 +3,8 @@
 
 [Github](https://github.com/gh0st-work/solid-js-router)
 
+[npm](https://www.npmjs.com/package/@gh0st-work/solid-js-router)
+
 ## Table of contents:
 - [Motivation](#Motivation)
 - [Installation](#Installation)
