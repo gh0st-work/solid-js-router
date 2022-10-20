@@ -4,12 +4,12 @@ import {
   createEffect,
   createMemo,
   useContext,
-  createSignal,
   onMount,
   onCleanup,
+  createSignal,
 } from "solid-js";
 import {Dynamic} from 'solid-js/web';
-import {normalizeChildren} from "./utils";
+import {isObjectsSame, normalizeChildren} from "./utils";
 import {useRouter} from "./Router";
 import {parse} from "regexparam";
 
@@ -78,7 +78,7 @@ export const Routes = (props) => {
     let routes = children().map((r, i) => ({i, ...r})).filter(r => r._isRoute).map(r => createPattern(r))
     let fallbackRoute = routes.find(r => r.fallback)
     let firstMatchRoute = null
-    routes.map((route, i) => {
+    routes.map((route) => {
       if (route._isRoute) {
         route.match = matchRoute(route)
         route.matchParams = (route.match ? route.match[1] : {})
@@ -120,7 +120,11 @@ export const Routes = (props) => {
   
   createEffect(() => {
     let newRoute = calculateRoute(children(), parentRoute(), router.pathname())
-    if (mounted() && newRoute?.pattern !== route()?.pattern && newRoute?.matchParams !== route()?.matchParams) {
+    let notSame = (
+      (newRoute?.pattern !== route()?.pattern)
+      || !isObjectsSame(newRoute?.matchParams, route()?.matchParams)
+    )
+    if (mounted() && notSame) {
       setRoute(newRoute)
     }
   })
@@ -140,18 +144,35 @@ export const Routes = (props) => {
   }
   
   const DefaultComponent = (props) => {
-    const children = createMemo(() => (
-      props?.match?.length === 2 && (typeof props.children) === 'function' ? props.children(props.match[1]) : props.children
-    ))
+    
+    const children = createMemo(() => {
+      
+      let {fallback, route} = props
+      
+      if (route()) {
+        let {matchParams, others} = route()
+        let routeChildren = others.children
+        if (Object.keys(matchParams).length && typeof routeChildren === 'function') {
+          return routeChildren(matchParams)
+        } else {
+          return routeChildren
+        }
+      } else {
+        return fallback
+      }
+      
+    })
+    
     return (<>{children()}</>)
   }
+  
   
   return (
     <RoutesLegacy.Provider value={context}>
       <Dynamic
         component={DefaultComponent}
-        match={route()?.match}
-        children={route() ? route().others.children : (props.fallback ?? null)}
+        route={route}
+        fallback={props.fallback ?? null}
       />
     </RoutesLegacy.Provider>
   )

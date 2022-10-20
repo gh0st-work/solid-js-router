@@ -19,8 +19,8 @@ export const Router = (props) => {
   const [pathname, setPathname] = createSignal(history.location.pathname)
   const [routesPassed, setRoutesPassed] = createSignal([])
 
-  const cleanupHandler = history.listen(({action, location}) => {
-    setPathname(location.pathname)
+  const cleanupHandler = history.listen(({location: {pathname}}) => {
+    setPathname(pathname)
   })
   onCleanup(() => cleanupHandler())
   

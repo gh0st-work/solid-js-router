@@ -254,7 +254,7 @@ Props:
 ### `<DefaultRoute>`
 Just shortcut to:
 ```jsx 
-<Route path={'*'}>
+<Route path={'/*'} fallback={fallback}>
   <Navigate to={to}/>
 </Route>
 ```
@@ -262,7 +262,8 @@ Just shortcut to:
 Insert it in the end of your routes and get rid of fallbacks.
 
 Props:
-- **to** - link/href to redirect, if no route found (`*` regex matching)
+- **to** - link/href to redirect, if no route found (`/*` regex matching)
+- **fallback** - boolean (`true`/`false`).<br>If no available route found the first `fallback={true}` route will be used.<br>Not redirecting anywhere.
 
 
 ### `<Link>`
@@ -270,6 +271,7 @@ Props:
 
 Props:
 - **href** - link/href to redirect
+- **hrefMemo** - link/href memo to redirect, if specified overwrites href prop (for dynamic)
 - **beforeRedirect** - func that will be called onClick and before redirect<br>`({href, e}) => {}`
 - **afterRedirect** - func that will be called onClick and after redirect<br>`({href, e}) => {}`
 - **children** - default hidden prop, your elements
@@ -302,6 +304,46 @@ const PersonalAccount = () => {
 }
 ```
 
+### `linkBind()`
+Used in `<Link>` component spread, just in case u want to use it in not in `<a>` tag
+
+Props:
+- **href** - link/href to redirect
+- **hrefMemo** - link/href memo to redirect, if specified overwrites href prop (for dynamic)
+- **beforeRedirect** - func that will be called onClick and before redirect<br>`({href, e}) => {}`
+- **afterRedirect** - func that will be called onClick and after redirect<br>`({href, e}) => {}`
+
+Ex:
+```jsx 
+import {linkBind} from "@gh0st-work/solid-js-router";
+
+const PersonalAccount = () => {
+  return (
+    <>
+      <button
+        {...linkBind({
+          href: '/home',
+          beforeRedirect: ({href, e}) => console.log(href, e),
+          afterRedirect: ({href, e}) => console.log(href, e),
+        })}  
+        class={'font-medium text-amber-500 hover:text-amber-400'}
+      >
+        Go home
+      </button>
+      <button
+        {...linkBind({
+          href: '/home',
+        })}  
+        class={'text-white font-medium text-lg bg-amber-500 hover:bg-amber-400 flex items-center justify-center space-x-2 rounded-md px-4 py-2'} 
+      >
+        <i class={'w-4 h-4 fa-solid fa-house'}/>
+        <span>Go home button</span>
+      </button>
+    </>
+  )
+}
+```
+
 ### `useHistory()`
 History navigation, all apis from [**history** package](https://www.npmjs.com/package/history).
 
@@ -328,8 +370,10 @@ const Home = () => {
 
 ## Development
 ### TODO
-- [x] second-level nesting test
+- [x] second-level nesting
 - [x] match params forwarding
-- [ ] more levels nesting test
-- [ ] useRoutes hook
+- [x] more levels nesting
+- [x] match params nesting forwarding 
+- [x] necessary-only mount test
+- [ ] match params nesting forwarding clean & advantage logic
 - [ ] types (?)
