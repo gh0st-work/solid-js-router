@@ -305,7 +305,7 @@ const PersonalAccount = () => {
 ```
 
 ### `linkBind()`
-Used in `<Link>` component spread, just in case u want to use it in not in `<a>` tag
+Used in `<Link>` component, spread, just in case u want to use it not on `<a>` tag.
 
 Props:
 - **href** - link/href to redirect
@@ -374,6 +374,6 @@ const Home = () => {
 - [x] match params forwarding
 - [x] more levels nesting
 - [x] match params nesting forwarding 
-- [x] necessary-only mount test
-- [ ] match params nesting forwarding clean & advantage logic
+- [x] necessary-only mount
+- [ ] match params nesting forwarding clean & logic improve
 - [ ] types (?)
