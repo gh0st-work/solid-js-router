@@ -131,7 +131,7 @@ And then rewrite everything with extremely shitty `<Outlet/>` strategy and lots 
 - **Classical [history](https://www.npmjs.com/package/history)** usage
 - `onRoute` **events sharing**
 - `depsMemo` for **re-renders on memo/signal change**
-- `<Link>` and `linkBind()` for **convenient** usage
+- `<Link>`, `linkBind()`, `<Navigate>`, `<DefaultRoute>` for **convenient** usage
 - **Fallbacks**
 
 
