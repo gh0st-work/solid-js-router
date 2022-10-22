@@ -5,6 +5,8 @@
 
 [npm](https://www.npmjs.com/package/@gh0st-work/solid-js-router)
 
+[CodeSandbox example](https://codesandbox.io/s/solid-js-router-e14xhh?file=/src/App.jsx)
+
 ## Table of contents:
 - [Motivation](#Motivation)
 - [Features](#Features)
