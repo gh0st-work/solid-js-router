@@ -131,7 +131,7 @@ And then rewrite everything with extremely shitty `<Outlet/>` strategy and lots 
 - **Classical [history](https://www.npmjs.com/package/history)** usage
 - `onRoute` **events sharing**
 - `depsMemo` for **re-renders on memo/signal change**
-- `<Link>`, `linkBind()`, `<Navigate>`, `<DefaultRoute>` for **convenient** usage
+- `<Link>`, `<Navigate>`, `<DefaultRoute>` for **convenient** usage
 - **Fallbacks**
 
 
@@ -322,46 +322,6 @@ const PersonalAccount = () => {
         <i class={'w-4 h-4 fa-solid fa-house'}/>
         <span>Go home button</span>
       </Link>
-    </>
-  )
-}
-```
-
-### `linkBind()`
-Used in `<Link>` component, spread, just in case u want to use it not on `<a>` tag.
-
-Props:
-- **href** - link/href to redirect
-- **hrefMemo** - link/href memo to redirect, if specified overwrites href prop (for dynamic)
-- **beforeRedirect** - func that will be called onClick and before redirect<br>`({href, e}) => {}`
-- **afterRedirect** - func that will be called onClick and after redirect<br>`({href, e}) => {}`
-
-Ex:
-```jsx 
-import {linkBind} from "@gh0st-work/solid-js-router";
-
-const PersonalAccount = () => {
-  return (
-    <>
-      <button
-        {...linkBind({
-          href: '/home',
-          beforeRedirect: ({href, e}) => console.log(href, e),
-          afterRedirect: ({href, e}) => console.log(href, e),
-        })}  
-        class={'font-medium text-amber-500 hover:text-amber-400'}
-      >
-        Go home
-      </button>
-      <button
-        {...linkBind({
-          href: '/home',
-        })}  
-        class={'text-white font-medium text-lg bg-amber-500 hover:bg-amber-400 flex items-center justify-center space-x-2 rounded-md px-4 py-2'} 
-      >
-        <i class={'w-4 h-4 fa-solid fa-house'}/>
-        <span>Go home button</span>
-      </button>
     </>
   )
 }
