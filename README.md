@@ -7,6 +7,7 @@
 
 ## Table of contents:
 - [Motivation](#Motivation)
+- [Features](#Features)
 - [Installation](#Installation)
 - [Usage](#Usage)
 - [API](#API)
@@ -119,13 +120,29 @@ And then rewrite everything with extremely shitty `<Outlet/>` strategy and lots 
 ### Conclusion
 > **So, the only purpose of this library is to make routing workable and convenient.**
 
+## Features
+- **Works** stably in 2022
+- Any level of **nesting**
+- **No outlets**, just write your code & don't worry
+- **Match params**, parsed via [regexparam](https://github.com/lukeed/regexparam)
+- **No unnecessary mount-s**
+- **Classical [history](https://www.npmjs.com/package/history)** usage
+- `onRoute` **events sharing**
+- `depsMemo` for **re-renders on memo/signal change**
+- `<Link>` and `linkBind()` for **convenient** usage
+- **Fallbacks**
+
+
+
 ## Installation
 `npm i @gh0st-work/solid-js-router`
 
 ## Usage
 On the same example:
+
 ```jsx
 import {Routes, Route, Link, Router, DefaultRoute} from '@gh0st-work/solid-js-router';
+import {createMemo} from "solid-js";
 
 const App = () => (
   <Router>
@@ -134,7 +151,7 @@ const App = () => (
         <HomePage/>
       </Route>
       <Route path={'/personal-account'}>
-        <PersonalAccountPage/>  
+        <PersonalAccountPage/>
       </Route>
       <DefaultRoute to={'/home'}/>
     </Routes>
@@ -157,7 +174,7 @@ const PersonalAccountPage = () => {
       href: 'products',
       name: 'Products',
       component: ProductsComponent,
-      props: {clicks: clicks()}
+      props: {clicks: clicks()}  // if u pass already called signal/memo like here, u must add it to memoDeps of <Routes> or exact <Route>
     },
     {
       href: 'billing',
@@ -178,7 +195,7 @@ const PersonalAccountPage = () => {
         <button onClick={() => setClicks(clicks() + 1)}>Click me</button>
       </div>
       <div class={'container right-part'}>
-        <Routes>
+        <Routes depsMemo={createMemo(() => [pages()])}>
           <For each={pages()}>
             {page => (
               <Route path={page.href}>
@@ -209,8 +226,9 @@ Props:
 Component for defining your routes, just wrap them in it.
 
 Props:
-- **fallback** - JSX element if no available route found.<br>Not redirecting anywhere.
 - **onRoute** - function `({route, parentRoute}) => {}` that will be called on every route change
+- **depsMemo** - memo or signal getter that will on change rerender active route children (in case u wanna provide already computed signals or memo in your routes children components)
+- **fallback** - JSX element if no available route found.<br>Not redirecting anywhere.
 - **children** - default hidden prop, non-`<Route>` components will be ignored
 
 ### `<Route>`
@@ -218,6 +236,7 @@ Just route component.
 
 Props:
 - **path** - relative path of your route.<br>Parsed via [regexparam](https://github.com/lukeed/regexparam), so you can use matching. <br>Recommended starting from `/`, i.e. `/personal-account` -> `/products`.
+- **depsMemo** - memo or signal getter that will on change rerender this route children (in case u wanna provide already computed signals or memo in your children components)
 - **fallback** - boolean (`true`/`false`).<br>If no available route found the first `fallback={true}` route will be used.<br>Not redirecting anywhere.
 - **children** - default hidden prop, your elements
 
@@ -377,5 +396,6 @@ const Home = () => {
 - [x] more levels nesting
 - [x] match params nesting forwarding 
 - [x] necessary-only mount
+- [x] depsMemo
 - [ ] match params nesting forwarding clean & logic improve
 - [ ] types (?)

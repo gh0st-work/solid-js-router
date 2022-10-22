@@ -118,6 +118,8 @@ export const Routes = (props) => {
     setMounted(true)
   })
   
+  const routesDepsMemo = props.depsMemo
+  
   createEffect(() => {
     let newRoute = calculateRoute(children(), parentRoute(), router.pathname())
     let notSame = (
@@ -150,7 +152,13 @@ export const Routes = (props) => {
       let {fallback, route} = props
       
       if (route()) {
-        let {matchParams, others} = route()
+        let {matchParams, others, depsMemo} = route()
+        if (depsMemo) {
+          let x = depsMemo()
+        }
+        if (routesDepsMemo) {
+          let x = routesDepsMemo()
+        }
         let routeChildren = others.children
         if (Object.keys(matchParams).length && typeof routeChildren === 'function') {
           return routeChildren(matchParams)
