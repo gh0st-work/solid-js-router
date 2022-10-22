@@ -12,7 +12,7 @@ export const linkBind = ({
   
   const realHref = createMemo(() => hrefMemo() ?? href)
   
-  const bind = createMemo(() => ({
+  return {
     href: realHref(),
     onClick: (e) => {
       e.preventDefault()
@@ -20,9 +20,7 @@ export const linkBind = ({
       history.push(realHref())
       afterRedirect({href: realHref(), e})
     }
-  }))
-  
-  return bind()
+  }
 }
 
 export const Link = ({
@@ -33,6 +31,7 @@ export const Link = ({
   afterRedirect = ({href, e}) => {},
   ...otherProps
 }) => {
+  
   return (
     <a
       {...otherProps}
