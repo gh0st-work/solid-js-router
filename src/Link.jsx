@@ -1,4 +1,4 @@
-import {useHistory, useRouter} from "./Router";
+import {useHistory} from "./Router";
 import {createMemo} from "solid-js";
 
 
