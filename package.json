@@ -1,7 +1,7 @@
 {
   "name": "@gh0st-work/solid-js-router",
   "private": false,
-  "version": "1.4.4",
+  "version": "1.4.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/gh0st-work/solid-js-router.git"
@@ -19,25 +19,32 @@
     "router"
   ],
   "type": "module",
-  "main": "dist/index.js",
+  "main": "./dist/esm/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "solid": "./dist/index.js",
-      "default": "./dist/index.js"
-    }
+      "import": "./dist/esm/index.js",
+      "browser": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "node": "./dist/cjs/index.js"
+    },
+    "./css": "./dist/esm/index.css"
   },
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "rollup -c",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "pub": "npm publish"
   },
   "dependencies": {
     "history": "^5.3.0",
     "regexparam": "^2.0.0"
   },
   "devDependencies": {
+    "rollup-preset-solid": "^1.4.0",
     "@babel/core": "^7.15.8",
     "@babel/preset-typescript": "^7.15.0",
     "@rollup/plugin-babel": "5.3.0",

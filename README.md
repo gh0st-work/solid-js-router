@@ -128,6 +128,8 @@ And then rewrite everything with extremely shitty `<Outlet/>` strategy and lots 
 - **No outlets**, just write your code & don't worry
 - **Match params**, parsed via [regexparam](https://github.com/lukeed/regexparam)
 - **No unnecessary mount-s**
+- **TypeScript** enabled for **safety**
+- **Without** loss of reactivity
 - **Classical [history](https://www.npmjs.com/package/history)** usage
 - `onRoute` **events sharing**
 - `depsMemo` for **re-renders on memo/signal change**
@@ -155,7 +157,7 @@ const App = () => (
       <Route path={'/personal-account'}>
         <PersonalAccountPage/>
       </Route>
-      <DefaultRoute to={'/home'}/>
+      <DefaultRoute to={'/home'}/> // must be defined last, since contains "*"
     </Routes>
   </Router>
 )
@@ -205,7 +207,7 @@ const PersonalAccountPage = () => {
               </Route>
             )}
           </For>
-          <DefaultRoute to={'products'}/>
+          <DefaultRoute to={'products'}/> // must be defined last, since contains "*"
         </Routes>
       </div>
     </>
@@ -275,6 +277,8 @@ Props:
 
 
 ### `<DefaultRoute>`
+Must be defined last, since contains `*`.
+
 Just shortcut to:
 ```jsx 
 <Route path={'/*'} fallback={fallback}>
@@ -359,5 +363,5 @@ const Home = () => {
 - [x] match params nesting forwarding 
 - [x] necessary-only mount
 - [x] depsMemo
+- [x] TypeScript
 - [ ] match params nesting forwarding clean & logic improve
-- [ ] types (?)
