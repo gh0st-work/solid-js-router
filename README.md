@@ -123,7 +123,7 @@ And then rewrite everything with extremely shitty `<Outlet/>` strategy and lots 
 > **So, the only purpose of this library is to make routing workable and convenient.**
 
 ## Features
-- **Works** stably in 2022
+- **Works** stably in 2023
 - Any level of **nesting**
 - **No outlets**, just write your code & don't worry
 - **Match params**, parsed via [regexparam](https://github.com/lukeed/regexparam)
