@@ -28,7 +28,7 @@ export const matchPath = (pattern, path) => {
     }
     return _pathMatchers[pattern](path);
 };
-export const Routes = ({ fallback = null, onRoute = () => null, depsMemo = () => null, children, }) => {
+export function Routes({ fallback = null, onRoute = () => null, depsMemo = () => null, children, }) {
     const router = useRouter();
     const parent = useRoutesLegacy();
     const parentRoute = createMemo(() => (parent?.route ? parent.route() : null));
@@ -63,7 +63,6 @@ export const Routes = ({ fallback = null, onRoute = () => null, depsMemo = () =>
             }
             return newRoute;
         });
-        console.log(r);
         let activeRoute = (firstMatchRoute ?? fallbackRoute);
         if (!activeRoute) {
             return null;
@@ -89,16 +88,16 @@ export const Routes = ({ fallback = null, onRoute = () => null, depsMemo = () =>
             linkPrefix
         };
     };
-    const [route, setRoute] = createSignal(null);
-    const [mounted, setMounted] = createSignal(false);
+    const [route, setRoute] = createSignal(null, {
+        equals: (prev, next) => ((next?.pattern === prev?.pattern) && isDictsSame(next?.matchParams, prev?.matchParams))
+    });
+    const [mounted, setMounted] = createSignal(false, { equals: (prev, next) => prev === next });
     onMount(() => {
         setMounted(true);
     });
     createEffect(() => {
         let newRoute = calculateRoute(routesRaw(), parentRoute(), router.pathname());
-        let notSame = ((newRoute?.pattern !== route()?.pattern)
-            || !isDictsSame(newRoute?.matchParams, route()?.matchParams));
-        if (mounted() && notSame) {
+        if (mounted()) {
             setRoute(newRoute);
         }
     });
@@ -113,8 +112,6 @@ export const Routes = ({ fallback = null, onRoute = () => null, depsMemo = () =>
     const context = {
         route
     };
-    const DefaultComponent = (props) => {
-    };
     const Children = ({ route, fallback = false }) => {
         const children = createMemo(() => {
             if (route()) {
@@ -126,7 +123,7 @@ export const Routes = ({ fallback = null, onRoute = () => null, depsMemo = () =>
                     let x = depsMemo();
                 }
                 let routeChildren = others.children;
-                if (Object.keys(matchParams).length && typeof routeChildren === 'function') {
+                if (matchParams && Object.keys(matchParams).length && typeof routeChildren === 'function') {
                     return routeChildren(matchParams);
                 }
                 else {
@@ -140,4 +137,4 @@ export const Routes = ({ fallback = null, onRoute = () => null, depsMemo = () =>
         return (<>{children()}</>);
     };
     return (<RoutesLegacy.Provider value={context} children={(<Children route={route} fallback={fallback ?? null}/>)}/>);
-};
+}

@@ -8,6 +8,7 @@ export interface RouteProps {
     fallbackParams?: Dictionary<string>;
     depsMemo?: Accessor<any>;
     children?: JSX.Element | Component<Dictionary<string>>;
+    [key: string]: any;
 }
 export declare type Route = {
     path: string;
@@ -18,4 +19,4 @@ export declare type Route = {
     _isRoute: true;
     others: Omit<RouteProps, "fallback" | "path" | "depsMemo">;
 };
-export declare const Route: (props: RouteProps) => Route;
+export declare const Route: (props?: RouteProps) => JSX.Element;

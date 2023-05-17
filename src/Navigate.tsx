@@ -1,11 +1,12 @@
 import {useHistory} from "./Router.js";
 import {onMount} from "solid-js";
+import {JSX} from "solid-js/types/jsx";
 
-export const Navigate = ({
+export function Navigate({
   to = '/'
 } : {
   to: string,
-}) : null => {
+}) : JSX.Element {
   const history = useHistory()
   onMount(() => history.push(to))
   return null

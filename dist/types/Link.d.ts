@@ -1,14 +1,15 @@
-import { Accessor, ParentComponent } from "solid-js";
-export interface LinkProps {
+import { Accessor, ParentProps } from "solid-js";
+import { JSX } from "solid-js/types/jsx";
+export declare function Link(props: ParentProps<{
     href?: string;
     hrefMemo?: Accessor<string | null>;
-    beforeRedirect: ({ href, e }: {
+    beforeRedirect?: ({ href, e }: {
         href: string;
         e: any;
     }) => void;
-    afterRedirect: ({ href, e }: {
+    afterRedirect?: ({ href, e }: {
         href: string;
         e: any;
     }) => void;
-}
-export declare const Link: ParentComponent<LinkProps>;
+    [key: string]: any;
+}>): JSX.Element;

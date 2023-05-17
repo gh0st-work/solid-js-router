@@ -1,3 +1,4 @@
-export declare const Navigate: ({ to }: {
+import { JSX } from "solid-js/types/jsx";
+export declare function Navigate({ to }: {
     to: string;
-}) => null;
+}): JSX.Element;

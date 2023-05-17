@@ -10,7 +10,6 @@ import {
   onMount,
   useContext,
 } from "solid-js";
-import {Dynamic} from 'solid-js/web';
 import {isDictsSame, normalizeChildren} from "./utils";
 import {useRouter} from "./Router";
 import {parse} from "regexparam";
@@ -21,18 +20,18 @@ import {Dictionary} from "./types";
 
 type Match = [string, Dictionary<string>]|false
 
-interface PatternedRoute extends Route {
+type PatternedRoute = Route & {
   pattern: string,
   parent?: Route,
 }
 
-interface MatchedRoute extends PatternedRoute {
+type MatchedRoute = PatternedRoute & {
   match: Match,
   matchParams: Dictionary<string>,
   firstMatch: boolean,
 }
 
-interface CalculatedRoute extends MatchedRoute {
+type CalculatedRoute = MatchedRoute & {
   patternPrefix: string,
   linkPrefix: string,
 }
@@ -73,22 +72,17 @@ export const matchPath = (pattern: string, path: string): Match => {
 }
 
 
-type RoutesType = {
-  depsMemo?: Accessor<any>,
-
-}
-
-export const Routes: Component = ({
+export function Routes({
   fallback = null,
   onRoute = () => null,
   depsMemo = () => null,
   children,
 } : {
-  fallback: any,
+  fallback?: any,
   onRoute?: ({route, parentRoute} : {route?: CalculatedRoute, parentRoute: CalculatedRoute}) => void,
   depsMemo?: Accessor<any>
   children?: JSX.Element,
-}) => {
+}): JSX.Element {
 
   const router = useRouter()
   const parent = useRoutesLegacy()
@@ -131,7 +125,6 @@ export const Routes: Component = ({
       }
       return newRoute
     })
-    console.log(r)
 
     let activeRoute: MatchedRoute = (firstMatchRoute ?? fallbackRoute)
     if (!activeRoute) {
@@ -161,8 +154,12 @@ export const Routes: Component = ({
     }
   }
   
-  const [route, setRoute] = createSignal<CalculatedRoute|null>(null)
-  const [mounted, setMounted] = createSignal(false)
+  const [route, setRoute] = createSignal<CalculatedRoute|null>(null, {
+    equals: (prev, next) => (
+      (next?.pattern === prev?.pattern) && isDictsSame(next?.matchParams, prev?.matchParams)
+    )
+  })
+  const [mounted, setMounted] = createSignal(false, {equals: (prev, next) => prev === next})
   
   onMount(() => {
     setMounted(true)
@@ -170,11 +167,7 @@ export const Routes: Component = ({
   
   createEffect(() => {
     let newRoute = calculateRoute(routesRaw(), parentRoute(), router.pathname())
-    let notSame = (
-      (newRoute?.pattern !== route()?.pattern)
-      || !isDictsSame(newRoute?.matchParams, route()?.matchParams)
-    )
-    if (mounted() && notSame) {
+    if (mounted()) {
       setRoute(newRoute)
     }
   })
@@ -192,12 +185,7 @@ export const Routes: Component = ({
   const context = {
     route
   }
-  
-  const DefaultComponent = (props) => {
-    
 
-  }
-  
   const Children = ({
     route,
     fallback = false
@@ -207,7 +195,6 @@ export const Routes: Component = ({
   }) => {
 
     const children = createMemo(() => {
-
       if (route()) {
         let {match, matchParams, others, depsMemo: rDepsMemo} = route()
         if (rDepsMemo) {
@@ -217,7 +204,7 @@ export const Routes: Component = ({
           let x = depsMemo()
         }
         let routeChildren = others.children
-        if (Object.keys(matchParams).length && typeof routeChildren === 'function') {
+        if (matchParams && Object.keys(matchParams).length && typeof routeChildren === 'function') {
           return routeChildren(matchParams)
         } else {
           return routeChildren

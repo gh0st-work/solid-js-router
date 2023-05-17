@@ -4,9 +4,10 @@ import {
   createMemo,
   createSignal,
   useContext,
-  onCleanup, Accessor, Setter, ParentProps, Component
+  onCleanup, Accessor, Setter, ParentProps
 } from "solid-js";
 import {invariant} from "./utils";
+import {JSX} from "solid-js/types/jsx";
 
 interface RouterValue extends BrowserHistory {
   pathname: Accessor<string>,
@@ -22,7 +23,7 @@ interface RouterProps extends ParentProps {
   history?: BrowserHistory
 }
 
-export const Router: Component<RouterProps> = (props) => {
+export function Router(props: RouterProps): JSX.Element {
   const history = props.history ?? createBrowserHistory()
   const [pathname, setPathname] = createSignal<string>(history.location.pathname)
 

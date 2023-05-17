@@ -1,7 +1,7 @@
 {
   "name": "@gh0st-work/solid-js-router",
   "private": false,
-  "version": "1.4.6",
+  "version": "1.5.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/gh0st-work/solid-js-router.git"
@@ -28,8 +28,7 @@
       "browser": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js",
       "node": "./dist/cjs/index.js"
-    },
-    "./css": "./dist/esm/index.css"
+    }
   },
   "files": [
     "dist"
@@ -65,6 +64,9 @@
   },
   "jest": {
     "preset": "solid-jest/preset/browser"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "sideEffects": false
 }

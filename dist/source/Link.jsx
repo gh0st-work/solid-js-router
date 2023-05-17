@@ -1,6 +1,6 @@
 import { useHistory } from "./Router.js";
 import { createMemo, splitProps } from "solid-js";
-export const Link = (props) => {
+export function Link(props) {
     const [local, others] = splitProps(props, ['href', 'hrefMemo', 'beforeRedirect', 'afterRedirect']);
     const { href, hrefMemo, beforeRedirect, afterRedirect } = local;
     const history = useHistory();
@@ -9,6 +9,6 @@ export const Link = (props) => {
             e.preventDefault();
             beforeRedirect && beforeRedirect({ href: realHref(), e });
             history.push(realHref());
-            beforeRedirect && afterRedirect({ href: realHref(), e });
+            afterRedirect && afterRedirect({ href: realHref(), e });
         }}/>);
-};
+}

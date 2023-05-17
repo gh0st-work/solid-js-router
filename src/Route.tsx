@@ -1,4 +1,4 @@
-import {ParentProps, splitProps, Accessor, Component} from "solid-js";
+import {splitProps, Accessor, Component} from "solid-js";
 import {JSX} from "solid-js/types/jsx";
 import {Dictionary} from "./types";
 
@@ -8,7 +8,8 @@ export interface RouteProps {
   fallback?: boolean,
   fallbackParams?: Dictionary<string>,
   depsMemo?: Accessor<any>,
-  children?: JSX.Element|Component<Dictionary<string>>
+  children?: JSX.Element|Component<Dictionary<string>>,
+  [key: string]: any,
 }
 
 export type Route = {
@@ -21,18 +22,24 @@ export type Route = {
   others: Omit<RouteProps, "fallback" | "path" | "depsMemo">,
 }
 
-export const Route = (props: RouteProps): Route => {
+export const Route = (props: RouteProps = {
+  path: '',
+  depsMemo: (() => null),
+  fallback: false,
+  fallbackParams: {},
+  full: false
+}): JSX.Element => {
   const [local, others] = splitProps(props, ['fallback', 'path', 'depsMemo', 'full', 'fallbackParams'])
 
-  const nullDepsMemp = (() => null)
-
-  return ({
+  const route: Route = {
     _isRoute: true,
     path: local.path,
-    depsMemo: local.depsMemo ?? nullDepsMemp,
+    depsMemo: local.depsMemo,
     fallback: !!local.fallback,
-    fallbackParams: local.fallbackParams ?? {},
+    fallbackParams: local.fallbackParams,
     full: !!local.full,
     others
-  })
+  }
+
+  return ((route as unknown) as JSX.Element)
 }

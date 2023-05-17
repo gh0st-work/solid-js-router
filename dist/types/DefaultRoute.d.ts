@@ -1,4 +1,5 @@
-export declare const DefaultRoute: ({ to, fallback }: {
+import { JSX } from "solid-js/types/jsx";
+export declare function DefaultRoute({ to, fallback }: {
     to: string;
     fallback?: boolean;
-}) => import("solid-js").JSX.Element;
+}): JSX.Element;
